@@ -17,8 +17,15 @@ class ImagenController extends Controller
 
         $manager = new ImageManager(new Driver());
         $imagenServidor = $manager::imagick()->read($imagen);
+        $ancho = 1000;
+        $alto = 1000;
 
-        $imagenServidor->resizeDown(1000, 1000);
+        // Calcula las coordenadas iniciales para centrar el recorte
+        $x = ($imagenServidor->width() / 2) - ($ancho / 2);
+        $y = ($imagenServidor->height() / 2) - ($alto / 2);
+
+        // Realiza el recorte desde el centro
+        $imagenServidor->crop($ancho, $alto, $x, $y);
 
         $imagenPath = public_path('uploads') . '/' . $nombreImagen;
         $imagenServidor->save($imagenPath);
