@@ -24,12 +24,12 @@ class LoginController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        
+        //Validar password
         if(!Auth::attempt($request->only('email','password'),$request->remember))
         {
             return back()->with('mensaje','Credenciales incorrectas');
         }
-
+        //Reescribes el nuevo password
         return redirect()->route('posts.index', Auth::user()->username);
     }
 }

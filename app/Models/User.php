@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,27 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    //alamcen alos seguidores de un usuario
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id','follower_id');
+    }
+
+    //Comprobar si un usuario ya sigue a otro
+
+    public function follow(User $user)
+    {
+        return $this->followers->contains($user->id);
+    }
+    //almacenar los que seguimos
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers','follower_id', 'user_id');
     }
 }

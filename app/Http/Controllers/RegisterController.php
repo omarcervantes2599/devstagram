@@ -19,18 +19,12 @@ class RegisterController extends Controller
     {
         //modificar el request
         $request->request->add(['username' => Str::slug($request->username)]);
-        $validator = Validator::make($request->all(), [
+        $this->validate( $request , [
             'name' => 'required|min:5',
             'username' => 'required|unique:users|min:5|max:20',
             'email' => 'required|unique:users|email|min:5|max:60',
             'password' => 'required|min:6|max:50|confirmed',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
 
         User::create([
             'name' => $request->name,
@@ -44,6 +38,7 @@ class RegisterController extends Controller
         // ]);       
         //redireccionar Muro
         Auth::attempt($request->only('email','password'));
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index', ['user' => Auth::user()->username]);
+
     }
 }

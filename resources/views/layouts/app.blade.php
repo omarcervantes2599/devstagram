@@ -17,8 +17,7 @@
 
             @if (Auth::user())
                 <nav class=" flex gap-2 items-center">
-                    <a
-                      href="{{route('posts.create')}}"
+                    <a href="{{ route('posts.create') }}"
                         class="flex item-center gap-2 bg-white border p-2 text-gray-600 rounded text-sm uppercase font-bold cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -29,7 +28,8 @@
                         </svg>
                         Crear
                     </a>
-                    <a class="font-bold text-gray-600 text-sm" href="{{route('posts.index', Auth::user()->username)}}">
+                    <a class="font-bold text-gray-600 text-sm"
+                        href="{{ route('posts.index', Auth::user()->username) }}">
                         Hola: <span class="font-normal">{{ Auth::user()->username }}</span>
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
@@ -40,7 +40,7 @@
                 </nav>
             @else
                 <nav class=" flex gap-2 items-center">
-                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{ 'login' }}">Login</a>
+                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('login') }}">Login</a>
                     <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('register') }}">Crear Cuenta</a>
                 </nav>
             @endif
