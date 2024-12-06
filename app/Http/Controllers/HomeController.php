@@ -9,13 +9,18 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
   public function __invoke()
-  {
-    //optener a quienes seguimos
+{
+    if (!Auth::check()) {
+        return redirect()->route('login'); // O manejar el caso según tu lógica.
+    }
+
+    // Obtener a quienes seguimos
     $ids = Auth::user()->followings->pluck('id')->toArray();
     $posts = Post::whereIn('user_id', $ids)->latest()->paginate(20);
-    
-    return view('home',[
-      'posts' => $posts
+
+    return view('home', [
+        'posts' => $posts
     ]);
-  }
+}
+
 }
