@@ -8,12 +8,13 @@
     <title>DevStagram - @yield('titulo')</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    @livewireStyles
 </head>
 
 <body class="bg-gray-100">
     <header class="p-5 border-b bg-white shadow">
         <div class="container mx-auto flex justify-between">
-            <a href="{{route('home')}}" class="text-3xl font-black">DevStagram</a>
+            <a href="{{ route('home') }}" class="text-3xl font-black">DevStagram</a>
 
             @if (Auth::user())
                 <nav class=" flex gap-2 items-center">
@@ -55,7 +56,7 @@
         DevStagram- Todos los Derechos reservados
         {{ now()->year }}
     </footer>
-
+    @livewireScripts
 </body>
 
 </html>
